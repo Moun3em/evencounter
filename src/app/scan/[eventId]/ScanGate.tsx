@@ -39,10 +39,11 @@ export default function ScanGate({ eventId }: { eventId: string }) {
     if (!authenticated || !scannerRef.current) return
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let scanner: { start: (...args: any[]) => Promise<void>; stop: () => Promise<void> } | null = null
+    let scanner: any = null
 
     import('html5-qrcode').then(({ Html5Qrcode }) => {
-      scanner = new Html5Qrcode('qr-reader')
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      scanner = new (Html5Qrcode as any)('qr-reader')
       html5QrRef.current = scanner
       setScannerReady(true)
 
